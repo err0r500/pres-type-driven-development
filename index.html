@@ -516,13 +516,14 @@ Sigma-type : $\exists$
 
 ---
 
-Lire les signatures de fonctions comme des phrases :
+### lire les signatures de fonctions comme des phrases :
 
 --
 
 ```
 twoTimesX : 2 * x = (4 - 2) * x
 ```
+2 fois x est égal à (4 -2) fois x
 
 --
 
@@ -530,11 +531,18 @@ twoTimesX : 2 * x = (4 - 2) * x
 plusCommut : (n, m : Nat) -> n + m = m + n
 ```
 
+dans un contexte où l'on me donne n'importe quels n et m (nombres naturels) ; n plus m égale m plus n
+
 --
 
 ```
-theorem1: (x, y:Nat) -> (P: x `LTE` y) -> (k:Nat ** y - x = k)
+theorem1: (m, n:Nat) -> (P: m `LTE` n) -> (k:Nat ** n - m = k)
 ```
+
+dans un contexte où l'on me donne n'importe quels n et m (nombres naturels) ; que l'on me donne une preuve que m est inférieur ou égale à n; alors il existe un nombre naturel k égale à n - m
+
+
+
 ---
                     </textarea>
                     <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
