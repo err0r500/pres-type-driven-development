@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+        <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+        <title>Remark</title>
+            <style>
+             @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+             @import url(https://fonts.googleapis.com/css?family=Lato:300&display=swap);
+             @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+             @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+             body {
+                 font-family: 'Lato';
+                 color: #515151;
+             }
+             h1, h2, h3 {
+                 font-family: 'Yanone Kaffeesatz';
+                 font-weight: 400;
+                 margin-bottom: 0;
+             }
+
+             .remark-slide-content h1 { font-size: 3em; }
+             .remark-slide-content h2 { font-size: 2em; }
+             .remark-slide-content h3 { font-size: 1.6em; }
+             .remark-slide-content ul { line-height: 1.5; }
+             .footnote {
+                 position: absolute;
+                 bottom: 3em;
+             }
+             li p { line-height: 1.25em; }
+             .red { color: #ae725f; }
+             .large { font-size: 2em; }
+             a, a > code {
+                 color: rgb(249, 38, 114);
+                 text-decoration: none;
+             }
+             code {
+                 background: #e7e8e2;
+                 border-radius: 5px;
+             }
+             .remark-code, .remark-inline-code { text-align: left }
+             .remark-code-line-highlighted     { background-color: #373832; }
+             .pull-left {
+                 float: left;
+                 width: 47%;
+             }
+             .pull-right {
+                 float: right;
+                 width: 47%;
+             }
+             .pull-right ~ p {
+                 clear: both;
+             }
+             #slideshow .slide .content code {
+                 font-size: 0.8em;
+             }
+             #slideshow .slide .content pre code {
+                 font-size: 0.9em;
+                 padding: 15px;
+             }
+             .inverse {
+                 background: #272822;
+                 color: #777872;
+                 text-shadow: 0 0 20px #333;
+             }
+             .inverse h1, .inverse h2 {
+                 color: #f3f3f3;
+                 line-height: 0.8em;
+             }
+
+             /* Slide-specific styling */
+             #slide-inverse .footnote {
+                 bottom: 12px;
+                 left: 20px;
+             }
+             #slide-how .slides {
+                 font-size: 0.9em;
+                 position: absolute;
+                 top:  151px;
+                 right: 140px;
+             }
+             #slide-how .slides h3 {
+                 margin-top: 0.2em;
+             }
+             #slide-how .slides .first, #slide-how .slides .second {
+                 padding: 1px 20px;
+                 height: 90px;
+                 width: 120px;
+                 -moz-box-shadow: 0 0 10px #777;
+                 -webkit-box-shadow: 0 0 10px #777;
+                 box-shadow: 0 0 10px #777;
+             }
+             #slide-how .slides .first {
+                 background: #fff;
+                 position: absolute;
+                 top: 20%;
+                 left: 20%;
+                 z-index: 1;
+             }
+             #slide-how .slides .second {
+                 position: relative;
+                 background: #fff;
+                 z-index: 0;
+             }
+
+             /* Two-column layout */
+             .left-column {
+                 color: #777;
+                 width: 20%;
+                 height: 92%;
+                 float: left;
+             }
+             .left-column h2:last-of-type, .left-column h3:last-child {
+                 color: #000;
+             }
+             .right-column {
+                 width: 75%;
+                 float: right;
+                 padding-top: 1em;
+             }
+            </style>
+    </head>
+    <body>
+        <textarea id="source">
+name: title
+layout: true
+class: center, middle, inverse
+---
+name: normal
+layout: true
+class: center, middle, noinverse
+
+---
+template: title
+#Type-Driven Development
+### avec Idris
+---
+template: normal
+---
+#Idris
+
+--
+langage pur fonctionnel,
+
+--
+
+typé statiquement,
+
+--
+
+à types dépendants.
+
+--
+
+appel _par valeur_ par défaut, _par nécessité_ éventuellement
+
+---
+## langage pur fonctionnel
+
+--
+à une entrée correspond une unique sortie
+
+--
+
+$$f(x)=y$$
+
+--
+
+__Equational reasoning__ : partout où l'on trouve f(x), on peut le remplacer par y, et vice-versa
+
+---
+## typé statiquement
+
+Les types sont vérifiés à la compilation
+
+--
+
+base de la __vérification formelle__
+---
+## à types dépendants 
+
+--
+coeur de la vérification formelle
+
+--
+
+(on va voir ce que cela signifie)
+
+---
+# Value, Types...
+
+--
+
+ex : True in Repl
+
+--
+
+pour écrire des preuves sur un Univers ${U}_k$ on a besoin de l'univers
+${U}_k+1$
+
+---
+```haskell
+data Bool = False | True
+
+-- or more explicitly :
+data Bool' : Type where -- nullary type constructor
+  T : Bool' -- nullary data constructors
+  F : Bool'
+```
+
+--
+
+Est-ce que `Bool` et `Bool'` sont vraiment 2 types différents ?
+
+--
+
+2 types différents pour le compilateur... mais on peut considérer qu'ils sont __théoriquement équivalents__
+
+--
+<img src="./isomorphism.svg" width="400" />
+---
+# Démo
+
+## Lists vs Vectors
+
+---
+# Tour d'horizon des types
+### par nombre d'habitants (cardinalité)
+---
+# Types simples
+---
+### Unit
+
+() : 1
+
+--
+***
+### Booléen
+
+Bool : 2
+
+--
+***
+### Finite set (3, 4)...
+
+Fin 3 : 3, Fin 4 : 4 ....
+
+---
+# Product types
+
+--
+
+<img src="./product.svg" width="400" />
+
+---
+### Pair
+
+(a, b)
+
+$$|A|.|B|$$
+
+--
+***
+### Tuple
+
+(a, b, c)
+
+$$|A|.|B|.|C|$$
+
+--
+***
+### Record
+```haskell
+record Person where
+    constructor MkPerson
+    firstName, lastName : String
+    age : Int
+```
+$$|String|.|String|.|Int|$$
+
+---
+# Sum types
+
+--
+<img src="./sum.svg" width="400" />
+
+---
+### Maybe
+Maybe a
+
+$$|A| + 1$$
+
+(Just ..., Nothing)
+
+--
+***
+### Either
+Either a b
+
+$$|A| + |B|$$
+
+(Left ..., Right ...)
+---
+# Exponential Types
+
+---
+### Fonction
+a -> b
+$$
+B^A
+$$
+--
+
+$$\prod_{A} |B|$$
+
+--
+***
+### Curry / Uncurry
+(a, b) -> c <=> a -> (b -> c)
+
+$$
+C^{A\times B} = (C^B)^{A}
+$$
+
+---
+# Types $\Sigma$
+
+Pair dont le second élément dépend du premier
+
+```
+boolVector : (a:Nat ** Vect a Bool)
+boolVector = (3 ** [True, True, False])
+```
+
+[demo]
+
+--
+
+$$\sum_{x:A} |B(x)|$$
+
+--
+
+_cas particulier_ : si le 2eme element de la paire ne tient pas compte du premier : B(a) -> U est une constante C : (a,b)
+
+$$\sum_A |C|$$
+
+---
+# Types $\Pi$
+
+Fonctions dont le type de retour varie en fonction de la valeur de l'argument
+
+```haskell
+stringOrInt : Bool -> Type
+stringOrInt True = String
+stringOrInt False = Int
+```
+[demo]
+
+--
+
+$$\prod_{x:A} |B(x)|$$
+
+--
+
+_cas particulier_ : si B(a) -> U est une constante C : a -> c
+
+$$\prod_A |C|$$
+---
+# Void
+
+pas d'habitant
+
+---
+# Totalité
+
+__couverture__ : tous les cas sont gérés
+
+--
+
+__terminaison__ : une application va eventuellement produire un resultat
+
+--
+
+ou __productivité__ : on a la garanti qu'une valeur sera produite
+
+---
+# Types M et W
+
+--
+
+Potentiellement une infinité de constructeurs, d'une arité potentiellement infinie (vision maths)
+
+---
+# Types M
+
+--
+
+Utilisés pour converger vers une base (data)
+
+--
+
+### Nat
+
+```haskell
+data Nat = Z | S Nat
+
+ex : 3 = S (S (S Z))
+```
+
+--
+
+### List
+
+```haskell
+data List : (elem : Type) -> Type where -- unary type constructor
+  Nil : List elem -- data constructors
+  (::) : (x : elem) -> (xs : List elem) -> List elem
+
+ex : ( 1 :: 2 :: 3 :: Nil ) = [1, 2, 3]
+```
+
+---
+# Types W
+
+--
+
+Utilisés pour diverger depuis une base (codata)
+
+Construction lazy (`Delay`) évaluation grâce à `Force`
+
+--
+
+Exemple : Stream
+
+```
+-- pseudo code
+-- Inf : Type -> Type
+-- Delay : (value : ty) -> Inf ty
+-- Force : (computation : Inf ty) -> ty
+
+data Stream : Type -> Type where
+  (::) : (value : elem) -> Inf (Stream elem) -> Stream elem
+
+
+
+countFrom : Integer -> Stream Integer
+countFrom x = x :: Delay (countFrom (x + 1))
+
+> countFrom 2
+2 :: Delay (countFrom 3) : Stream Integer
+
+> Stream.take 10 $ countFrom 2
+[2, 3, 4, 5, 6, 7, 8, 9, 10, 11] : List Integer
+
+```
+
+---
+# Egalité
+
+```haskell
+twoPlusTwoFour : 2 + 2 = 4
+twoPlusTwoFour = Refl
+
+twoTimesX : 2 * x = (4 - 2) * x
+twoTimesX = Refl
+```
+[demo]
+
+2 termes sont égaux
+
+s'ils ont la même _forme normale_ (valeur ou plus de réduction possible)
+
+---
+# Logique intuitionniste
+
+la notion de vérité est remplacée par la notion de preuve constructive.
+
+--
+
+Type = proposition
+
+--
+
+Habitant d'un Type = preuve de la proposition
+
+---
+
+Either a b : $A \vee B$
+
+--
+
+(a, b) : $A \wedge B$
+
+--
+
+a -> b : $A \Rightarrow B$ (ou context $\Gamma$)
+
+--
+
+Pi-type : $\forall$
+
+--
+
+Sigma-type : $\exists$
+
+---
+
+Lire les signatures de fonctions comme des phrases :
+
+--
+
+```
+twoTimesX : 2 * x = (4 - 2) * x
+```
+
+--
+
+```
+plusCommut : (n, m : Nat) -> n + m = m + n
+```
+
+--
+
+```
+theorem1: (x, y:Nat) -> (P: x `LTE` y) -> (k:Nat ** y - x = k)
+```
+---
+                    </textarea>
+                    <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+                    <script>
+                     var hljs = remark.highlighter.engine;
+                    </script>
+                    <script src="remark.language.js"></script>
+                    <script>
+                     var slideshow = remark.create({
+                         highlightStyle: 'dracula',
+                         highlightLanguage: 'remark',
+                         highlightLines: true,
+                         ratio: "16:9"
+                     }) ;
+                     MathJax = {
+                         loader: {
+                             source: {
+                                 '[tex]/amsCd': '[tex]/amscd'
+                             }
+                         },
+                         tex: {
+                             inlineMath: [['$', '$']],
+                             packages: {'[+]': ['amscd']}}
+                     };
+                    </script>
+                    <script type="text/javascript" id="MathJax-script" async
+                            src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-svg.js">
+                    </script>
+                    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/input/tex/extensions/amscd.js"></script>
+    </body>
+</html>
