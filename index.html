@@ -222,10 +222,18 @@ Est-ce que `Bool` et `Bool'` sont vraiment 2 types différents ?
 
 --
 
-2 types différents pour le compilateur... mais on peut considérer qu'ils sont __théoriquement équivalents__
+2 types différents pour le compilateur... mais on peut considérer qu'ils sont __théoriquement équivalents__ (isomorphiques)
 
 --
 <img src="./isomorphism.svg" width="400" />
+
+$$ 
+f \circ g = idA 
+$$
+$$
+g \circ f = idB 
+$$
+
 ---
 # Démo
 
@@ -348,7 +356,11 @@ $$\sum_{x:A} |B(x)|$$
 
 --
 
-_cas particulier_ : si le 2eme element de la paire ne tient pas compte du premier : B(a) -> U est une constante C : (a,b)
+***
+
+_cas particulier_ : B(a) -> U est une constante C (ie : type du 2eme elem ne dépend pas du premier)
+
+Simple paire (a,c)
 
 $$\sum_A |C|$$
 
@@ -370,7 +382,11 @@ $$\prod_{x:A} |B(x)|$$
 
 --
 
-_cas particulier_ : si B(a) -> U est une constante C : a -> c
+***
+
+_cas particulier_ : si B(a) -> U est une constante C (ie: type de retour ne dépend pas du premier) : 
+
+simple fonction a -> c
 
 $$\prod_A |C|$$
 ---
